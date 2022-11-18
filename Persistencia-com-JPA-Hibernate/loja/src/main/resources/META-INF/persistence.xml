@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+    <!--É um persistence-unit para cada BD-->
+    <!--Tag persistence-unit serve para agrupar as configurações de uma unidade de persistência, que representa um banco de dados utilizado pela aplicação-->
+    <persistence-unit name="loja" transaction-type="RESOURCE_LOCAL">
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:loja"/><!--Database no h2 vai se chamar loja-->
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+
+            <!--Propriedade específica da implementação da JPA que estamos utilizando no caso Hibernate-->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <!--Através do dialect informamos para o Hibernate as particularidades do BD. Exemplo: no H2 não existe booleano (booleano é inteiro, 0 e 1)-->
+        </properties>
+    </persistence-unit>
+
+</persistence>
