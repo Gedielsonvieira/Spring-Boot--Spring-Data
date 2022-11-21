@@ -4,6 +4,9 @@ package br.com.alura.loja.modelo;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import static java.time.temporal.TemporalQueries.localDate;
 
 //A classe produto representa a tabela de produto
 @Entity//Essa anotação indica que essa classe é uma entidade da JPA, ou seja, tem uma tabela no BD à representando
@@ -15,6 +18,9 @@ public class Produto {
     private String nome;
     private String descricao;
     private BigDecimal preco;
+    private LocalDate dateCadastro = LocalDate.now();
+    @Enumerated(EnumType.STRING)
+    private Categoria categoria;
 
     public Long getId() {
         return id;
@@ -46,5 +52,21 @@ public class Produto {
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
+    }
+
+    public LocalDate getDateCadastro() {
+        return dateCadastro;
+    }
+
+    public void setDateCadastro(LocalDate dateCadastro) {
+        this.dateCadastro = dateCadastro;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }

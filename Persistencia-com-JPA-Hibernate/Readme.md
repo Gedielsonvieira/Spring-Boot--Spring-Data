@@ -69,3 +69,19 @@ Feito isso, a JPA consegue gerar as conexões para acessar o nosso banco de dado
 
 > Devemos iniciar e comitar uma transação ao persistir uma entidade ao realizar operações de escrita no banco de dados,
 > como insert, update e delete
+
+
+**EntityManager** - Essa interface funciona como se fosse o gerente, o "manager" das entidades, ou seja, toda vez que
+desejarmos acessar o banco de dados, seja para salvar, excluir, atualizar, carregar, fazer um select, ou qualquer outra
+operação, nós utilizaremos a interface EntityManager
+
+## ❗Importante
+
+* Não é uma boa prática mapear enums pela ordem da constante o ideal é mapear pelo nome da constante, assim não
+  afetará em nada no BD e para fazer isso utilizamos a anotação com o valor: **@Enumerated(EnumType.STRING)** com isso
+  conseguimos salvar no BD o nome da constante.
+
+
+* Os tipos de atributos que podemos mapear sem a necessidade de configurações adicionais via anotações da JPA são:
+    * Tipos primitivos (int, Long, float...);
+    * Algumas classes do Java (LocalDate, BigDecimal, String...)
