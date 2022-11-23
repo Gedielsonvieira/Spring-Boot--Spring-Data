@@ -105,7 +105,7 @@ operação, nós utilizaremos a interface EntityManager
 
 ### Estados no <u>insert</u> da entidade:
 
-- **Transient**: Quando damos "new", isto é, quando instanciamos uma entidade,
+- **TRANSIENT**: Quando damos "new", isto é, quando instanciamos uma entidade,
   para a JPA, a entidade está em um estado chamado de TRANSIENT. O estado transient é de uma entidade que nunca foi
   persistida, não está gravada no banco de dados, não tem um id e não está sendo gerenciada pela JPA. A JPA desconhece
   essa entidade. É como se fosse um objeto Java puro, que não tem nada a ver com persistência. Esse é o primeiro estado
@@ -114,14 +114,41 @@ operação, nós utilizaremos a interface EntityManager
   fizermos o close do EntityManager.
 
 
-- **Managed**: Quando chamamos o método persist(), ela move do estado transient para o estado MANAGED ou gerenciado.
+- **MANAGED**: Quando chamamos o método persist(), ela move do estado transient para o estado MANAGED ou gerenciado.
   Managed é o principal estado que uma entidade pode estar, portanto, tudo que acontece com uma entidade nesse estado, a
   JPA observará e poderá sincronizar com o banco de dados, a depender do que fizermos.
 
 
-- No momento em que fazemos o commit() ou o flush, a JPA pega todas as entidades que estiverem no estado managed e
-  sincroniza com o banco de dados. Então, tínhamos uma entidade que era transient, está gerenciada e, depois que
-  commitamos, ele perceberá que a entidade não tem id, que ela era transient, ou seja, é necessário fazer um insert dela
-  no banco de dados.
+- **DETACHED** - A partir do momento em que fechamos o EntityManager, isto é, em.close() ou clear() (para limpar as
+  entidades gerenciadas do EntityManager), a categoria muda de estado. Se ela estava salva antes, passa para um estado
+  chamado de DETACHED, que é um estado destacado. O detached é um estado em que a entidade não é mais transient, porque
+  tem id, já foi salva no banco de dados, porém, não está mais sendo gerenciada. Portanto, se mexermos nos atributos, a
+  JPA não disparará update e nem fará mais nada.
 
 ### Estados no <u>update</u> da entidade:
+
+> Toda vez que a entidade está no estado managed, está gerenciada, qualquer mudança que fizermos em algum atributo,a JPA
+> detectará e, no commit() ou no flush() do EntityManager, ela vai, automaticamente, sincronizar essas mudanças no banco
+> de dados, porque sabe que é necessário fazer o update no banco de dados.
+
+#### Diferença entre flush e commit
+
+> No momento em que fazemos o commit() ou o flush, a JPA pega todas as entidades que estiverem no estado managed e
+> sincroniza com o banco de dados.
+> **Porém o flush sincroniza as alteracoes com o banco de dados, mas nao realiza o commit, ou seja, poderiamos continuar
+> realizando outras operacoes com o EntityManager apos chamar o flush. Ja o commit sincroniza as alteracoes com o
+> banco de dados e "encerra" as operacoes da transacao atual do EntityManager.**
+
+- merge() - Tem como objetivo pegar uma entidade que está no estado detached e retorná-la ao estado managed(gerenciado).
+
+### Estados no <u>delete</u> da entidade:
+
+> situação no ciclo de vida, que é quando uma entidade está no banco de dados.
+
+- Quando já fechamos o EntityManager e não temos mais uma referência para a entidade no estado
+  detached, então, como faremos para trazê-la para o estado managed. Basicamente, queremos trazê-la do banco para o
+  estado managed, para isso, precisaremos dos métodos find()/ createQuery()
+
+## Estados possíveis e transições que acontecem na JPA
+
+<image src="loja/ciclo-de-vida-entidade.png"></image>
