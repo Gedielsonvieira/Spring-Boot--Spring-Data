@@ -9,7 +9,8 @@
     <persistence-unit name="loja" transaction-type="RESOURCE_LOCAL">
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:loja"/><!--Database no h2 vai se chamar loja-->
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:h2:mem:loja"/><!--Database no h2 vai se chamar loja-->
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value=""/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
@@ -21,6 +22,20 @@
             <!--Informa para o Hibernate que a cada vez que for gerado um sql (for no BD) ele deve imprimir no console-->
             <property name="hibernate.show_sql" value="true"/>
 
+            <!--Propriedade para o Hibernate olhar para as nossas entidades e gerar os comandos SQL para criar o banco de dados automaticamente.-->
+            <!--
+            value="create" - Toda vez que criarmos um EntityManagerFactory, o Hibernate vai olhar as entidades e gerar o
+            comando para criar o banco de dados. Portanto, ele vai apagar tudo e criar do zero as tabelas. Após usarmos
+            a aplicação, ele não apagará as tabelas, elas continuarão lá.
+
+            value="create-drop" - cria as tabelas quando rodarmos a aplicação e, depois que terminamos de executar a
+            aplicação, ele imediatamente dropa.
+
+            value="update" - vai apenas atualizar a tabela se alguma mudança surgir. O "update" só adiciona coisas
+            novas, por exemplo, se adicionarmos uma nova coluna ou uma nova tabela, ele cria. Mas, se apagarmos uma
+            entidade ou um atributo dela, ele não apaga a tabela e nem a coluna, porque isso pode gerar um efeito
+            colateral.
+            -->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>

@@ -1,6 +1,6 @@
 # Introdução à JPA
 
-JPA - Java Persistence API veio para substituir o JDBC
+JPA - Java Persistence API veio para substituir o JDBC porém por baixo dos panos a JPA trabalha com JDBC
 
 ## JDBC e suas desvantagens:
 
@@ -20,7 +20,7 @@ JPA - Java Persistence API veio para substituir o JDBC
 
 - JPA é uma especificação e Hibernate é uma de suas implementações
 
-<image src="loja/image-jpa-implementacoes.png">
+<image src="loja/image-jpa-implementacoes.png"></image>
 
 **JPA é como se fosse uma interface e bibliotecas como Hibernate implementa os métodos dessa interface.**
 
@@ -75,13 +75,53 @@ Feito isso, a JPA consegue gerar as conexões para acessar o nosso banco de dado
 desejarmos acessar o banco de dados, seja para salvar, excluir, atualizar, carregar, fazer um select, ou qualquer outra
 operação, nós utilizaremos a interface EntityManager
 
-## ❗Importante
+<h2>Importante ❗</h2>
 
-* Não é uma boa prática mapear enums pela ordem da constante o ideal é mapear pelo nome da constante, assim não
-  afetará em nada no BD e para fazer isso utilizamos a anotação com o valor: **@Enumerated(EnumType.STRING)** com isso
-  conseguimos salvar no BD o nome da constante.
+-[x] Não é uma boa prática mapear enums pela ordem da constante o ideal é mapear pelo nome da constante, assim não
+ afetará em nada no BD e para fazer isso utilizamos a anotação com o valor: **@Enumerated(EnumType.STRING)** com isso
+ conseguimos salvar no BD o nome da constante.
 
 
-* Os tipos de atributos que podemos mapear sem a necessidade de configurações adicionais via anotações da JPA são:
+-[x] Os tipos de atributos que podemos mapear sem a necessidade de configurações adicionais via anotações da JPA são:
     * Tipos primitivos (int, Long, float...);
     * Algumas classes do Java (LocalDate, BigDecimal, String...)
+
+### Relacionamento entre entidades
+
+-[x] Sempre que temos uma entidade, onde o atributo é uma outra entidade, a JPA automaticamente identifica que é um
+ relacionamento, e então, precisamos indicar qual é a cardinalidade através de alguma anotação conforme a modelagem do
+ BD:
+    * @ManyToOne
+    * @ManyToMany
+    * @OneToMany
+    * @OneToOne
+
+
+-[x] Ao persistir/salvar, temos que ter cuidado, porque, se estamos persistindo com uma entidade e que tem o
+ relacionamento com outra entidade, essa outra precisa estar persistida antes, ou receberemos uma
+ exception "transiente property value excepetion".
+
+## Ciclo de vida de uma entidade
+
+### Estados no <u>insert</u> da entidade:
+
+- **Transient**: Quando damos "new", isto é, quando instanciamos uma entidade,
+  para a JPA, a entidade está em um estado chamado de TRANSIENT. O estado transient é de uma entidade que nunca foi
+  persistida, não está gravada no banco de dados, não tem um id e não está sendo gerenciada pela JPA. A JPA desconhece
+  essa entidade. É como se fosse um objeto Java puro, que não tem nada a ver com persistência. Esse é o primeiro estado
+  de uma entidade. Nesse estado, se alteramos o atributo da entidade ou qualquer outra coisa que façamos com a entidade,
+  o EntityManager não está gerenciando, nem verificando, e não vai sincronizar com o banco de dados se nós commitarmos e
+  fizermos o close do EntityManager.
+
+
+- **Managed**: Quando chamamos o método persist(), ela move do estado transient para o estado MANAGED ou gerenciado.
+  Managed é o principal estado que uma entidade pode estar, portanto, tudo que acontece com uma entidade nesse estado, a
+  JPA observará e poderá sincronizar com o banco de dados, a depender do que fizermos.
+
+
+- No momento em que fazemos o commit() ou o flush, a JPA pega todas as entidades que estiverem no estado managed e
+  sincroniza com o banco de dados. Então, tínhamos uma entidade que era transient, está gerenciada e, depois que
+  commitamos, ele perceberá que a entidade não tem id, que ela era transient, ou seja, é necessário fazer um insert dela
+  no banco de dados.
+
+### Estados no <u>update</u> da entidade:

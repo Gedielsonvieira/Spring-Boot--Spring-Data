@@ -19,8 +19,20 @@ public class Produto {
     private String descricao;
     private BigDecimal preco;
     private LocalDate dateCadastro = LocalDate.now();
-    @Enumerated(EnumType.STRING)
+
+    /* Cardinalidade - Um produto tem uma única categoria e uma categoria pode estar vinculada a vários produtos
+    Muitos produtos podem estar vinculados a uma categoria */
+    @ManyToOne
     private Categoria categoria;
+
+    public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.categoria = categoria;
+    }
+
+    public Produto(){}
 
     public Long getId() {
         return id;
