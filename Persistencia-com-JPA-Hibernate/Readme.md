@@ -149,6 +149,16 @@ operação, nós utilizaremos a interface EntityManager
   detached, então, como faremos para trazê-la para o estado managed. Basicamente, queremos trazê-la do banco para o
   estado managed, para isso, precisaremos dos métodos find()/ createQuery()
 
-## Estados possíveis e transições que acontecem na JPA
+### Estados possíveis e transições que acontecem na JPA
 
 <image src="loja/ciclo-de-vida-entidade.png"></image>
+
+## Consultas com JPQL
+> JPQL é um SQL orientado a objetos, nada mais é do que uma String
+
+- **Consulta** - Para realizar uma consulta com o JPQL informamos a entidade e não a tabela conforme ocorreria no SQL,
+  - Exemplo : 
+    - public List<Produto> buscarTodosProdutos() {
+      return em.createQuery("SELECT p FROM Produto p",Produto.class).getResultList();
+      }
+    > Produto é a nossa entidade e não a tabela

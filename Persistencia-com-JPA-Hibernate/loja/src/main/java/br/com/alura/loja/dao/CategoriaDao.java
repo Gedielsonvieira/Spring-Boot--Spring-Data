@@ -2,6 +2,8 @@ package br.com.alura.loja.dao;
 
 
 import br.com.alura.loja.modelo.Categoria;
+import br.com.alura.loja.modelo.Produto;
+
 import javax.persistence.EntityManager;
 
 //Toda a parte de persistencia de categoria vai ficar na classe CategoriaDao
@@ -22,9 +24,7 @@ public class CategoriaDao {
     }
 
     public void deletar(Categoria categoria) {
-        /*Categoria categoriaRef = em.merge(categoria);
-        this.em.remove(categoriaRef);*/
-        categoria = em.merge(categoria);
-        this.em.remove(categoria);
+        Categoria categoriaRef = em.merge(categoria);
+        this.em.remove(categoriaRef);
     }
 }

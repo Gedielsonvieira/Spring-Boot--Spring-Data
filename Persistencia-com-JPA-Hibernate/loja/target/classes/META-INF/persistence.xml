@@ -37,6 +37,9 @@
             colateral.
             -->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+            <!--Para formatar o SQL no console-->
+            <property name="hibernate.format_sql" value="true"/>
         </properties>
     </persistence-unit>
 
