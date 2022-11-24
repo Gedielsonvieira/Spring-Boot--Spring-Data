@@ -23,13 +23,12 @@ public class CadastroDeProdutos {
         categoriaDao.cadastrar(celulares);
         //produtoDao.cadastrar(celular);
         em.getTransaction().commit();
-        em.close();
 
-        EntityManager em2 = JPAUtil.getEntityManager();
-        em2.getTransaction().begin();
-        Categoria categoria = em2.find(Categoria.class, 1l);
-        em2.remove(categoria);
-        em2.getTransaction().commit();
-        em2.close();
+        
+        em.getTransaction().begin();
+        Categoria categoria = em.find(Categoria.class, 1l);
+        em.remove(categoria);
+        em.getTransaction().commit();
+        em.close();
     }
 }
