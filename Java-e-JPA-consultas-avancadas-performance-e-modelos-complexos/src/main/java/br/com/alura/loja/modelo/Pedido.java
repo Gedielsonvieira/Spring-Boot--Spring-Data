@@ -3,6 +3,7 @@ package br.com.alura.loja.modelo;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "pedidos")
@@ -14,6 +15,8 @@ public class Pedido {
     private BigDecimal valorTotal;
     @ManyToOne
     private Cliente clienteId;
+
+    private List<ItemPedido> itens;
 
     public Pedido(Cliente clienteId) {
         this.clienteId = clienteId;
