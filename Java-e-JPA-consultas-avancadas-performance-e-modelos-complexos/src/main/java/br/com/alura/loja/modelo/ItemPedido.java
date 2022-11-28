@@ -14,12 +14,13 @@ public class ItemPedido {
     @ManyToOne
     private Produto produtoId;
     @ManyToOne
-    private Pedido pedido_id;
+    private Pedido pedidoId;
 
-    public ItemPedido(int quantidade, Produto produtoId, Pedido pedido_id) {
+    public ItemPedido(int quantidade, Produto produtoId, Pedido pedidoId) {
         this.quantidade = quantidade;
         this.produtoId = produtoId;
-        this.pedido_id = pedido_id;
+        this.pedidoId = pedidoId;
+        this.precoUnitario = produtoId.getPreco();
     }
 
     public ItemPedido(){}
@@ -57,10 +58,10 @@ public class ItemPedido {
     }
 
     public Pedido getPedido_id() {
-        return pedido_id;
+        return pedidoId;
     }
 
     public void setPedido_id(Pedido pedido_id) {
-        this.pedido_id = pedido_id;
+        this.pedidoId = pedido_id;
     }
 }
