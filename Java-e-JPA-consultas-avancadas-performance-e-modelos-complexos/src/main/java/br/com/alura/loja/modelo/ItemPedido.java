@@ -9,17 +9,18 @@ public class ItemPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "preco_unitario")
     private BigDecimal precoUnitario;
     private int quantidade;
     @ManyToOne
-    private Produto produtoId;
+    private Produto produto;
     @ManyToOne
-    private Pedido pedidoId;
+    private Pedido pedido;
 
     public ItemPedido(int quantidade, Produto produtoId, Pedido pedidoId) {
         this.quantidade = quantidade;
-        this.produtoId = produtoId;
-        this.pedidoId = pedidoId;
+        this.produto = produtoId;
+        this.pedido = pedidoId;
         this.precoUnitario = produtoId.getPreco();
     }
 
@@ -49,19 +50,19 @@ public class ItemPedido {
         this.quantidade = quantidade;
     }
 
-    public Produto getProdutoId() {
-        return produtoId;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setProdutoId(Produto produtoId) {
-        this.produtoId = produtoId;
+    public void setProduto(Produto produtoId) {
+        this.produto = produtoId;
     }
 
-    public Pedido getPedido_id() {
-        return pedidoId;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setPedido_id(Pedido pedido_id) {
-        this.pedidoId = pedido_id;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 }

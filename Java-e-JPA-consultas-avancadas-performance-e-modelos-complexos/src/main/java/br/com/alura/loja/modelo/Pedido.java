@@ -13,14 +13,17 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate data = LocalDate.now();
+    @Column(name = "valor_total")
     private BigDecimal valorTotal;
     @ManyToOne
-    private Cliente clienteId;
-    @OneToMany(mappedBy = "pedidoId")
+    private Cliente cliente;
+
+    //parametro cascade propaga as operações realizadas em uma entidade em seu relacionamento
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens = new ArrayList<>();//Sempre inicializar a lista para não precisar ficar fazendo verificações
 
     public Pedido(Cliente clienteId) {
-        this.clienteId = clienteId;
+        this.cliente = clienteId;
     }
 
     public Pedido() {
@@ -28,7 +31,7 @@ public class Pedido {
 
     public void adicionarItem(ItemPedido item){
         //vinculando os doi lados:
-        item.setPedido_id(this);//item conhece o pedido
+        item.setPedido(this);//item conhece o pedido
         this.itens.add(item);//pedido conhece o item
     }
 
@@ -56,11 +59,11 @@ public class Pedido {
         this.valorTotal = valorTotal;
     }
 
-    public Cliente getClienteId() {
-        return clienteId;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClienteId(Cliente clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(Cliente clienteId) {
+        this.cliente = clienteId;
     }
 }
