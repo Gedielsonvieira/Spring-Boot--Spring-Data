@@ -24,7 +24,8 @@ public class ItemPedido {
         this.precoUnitario = produtoId.getPreco();
     }
 
-    public ItemPedido(){}
+    public ItemPedido() {
+    }
 
     public Long getId() {
         return id;
@@ -64,5 +65,10 @@ public class ItemPedido {
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public BigDecimal getValor() {
+        //Só pode ser feito cálculo de BigDecimal para BigDecimal
+        return this.precoUnitario.multiply(new BigDecimal(this.quantidade));
     }
 }

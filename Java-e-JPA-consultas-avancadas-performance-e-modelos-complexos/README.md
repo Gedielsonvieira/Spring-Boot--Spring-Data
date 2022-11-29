@@ -16,7 +16,7 @@
 ## Relacionamento bidirecional
 
 <image src="./tabela-itens-pedidos-bidirecional.png"></image>
-> "itens_pedidos" - Quando tivermos mais colunas além das que fazem join entre as tabelas devemos criar uma entidade 
+> "itens_pedidos" - Quando tivermos mais colunas além das que fazem join entre as tabelas devemos criar uma entidade
 > para representar a tabela na nossa aplicação.
 
 ## ❗ Importante
@@ -26,4 +26,10 @@
 > é um relacionamento bidirecional, a JPA, ela não vai entender e ela vai supor que isso é um novo mapeamento criando
 > uma outra tabela de join.
 > Para indicar o relacionamento bidirecional para a JPA utilizamos o mappedBy informando qual o atributo que já está
-> fazendo o mapeamento 
+> fazendo o mapeamento
+
+# Consultas avançadas
+
+## Consultas com funções de agregação
+
+> Consultas onde utilizamos funções para fazer um somatório, um valor mínimo, um valor max, uma média...
