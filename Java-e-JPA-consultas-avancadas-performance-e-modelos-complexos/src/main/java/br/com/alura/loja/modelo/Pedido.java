@@ -15,7 +15,7 @@ public class Pedido {
     private LocalDate data = LocalDate.now();
     @Column(name = "valor_total")
     private BigDecimal valorTotal = BigDecimal.ZERO;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     //parametro cascade propaga as operações realizadas em uma entidade em seu relacionamento

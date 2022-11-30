@@ -29,16 +29,23 @@ public class PedidoDao {
 
     public List<RelatorioDeVendasVo> relatorioDeVendas() {
         String jpql = "SELECT new br.com.alura.loja.vo.RelatorioDeVendasVo("
-                + "produto.nome, "
+                + "prod.nome, "
                 + "SUM(item.quantidade), "
-                + "MAX(pedido.data)) "
-                + "FROM Pedido pedido "
-                + "JOIN pedido.itens item "
-                + "JOIN item.produto produto "
-                + "GROUP BY produto.nome "
+                + "MAX(ped.data)) "
+                + "FROM Pedido ped "
+                + "JOIN ped.itens item "
+                + "JOIN item.produto prod "
+                + "GROUP BY prod.nome "
                 + "ORDER BY item.quantidade DESC";
         return em.createQuery(jpql, RelatorioDeVendasVo.class)
                 .getResultList();
+    }
+
+    public Pedido buscarPedidoComCLiente(Long id){
+        //Para carregar um relacionamento junto com Pedido utilizamos o JOIN FETCH com o nome do atributo
+        return em.createQuery("SELECT p FROM Pedido p JOIN FETCH p.cliente WHERE p.id = :id", Pedido.class)
+                .setParameter("id",id)
+                .getSingleResult();
     }
 
 }
