@@ -82,3 +82,14 @@ estivessemos dando new em uma (classe passada depois do new).
 
 - O join fetch permite escolher quais relacionamentos serão carregados em determinada consulta, ao invés de sempre os
   carregar
+
+# Criteria API
+
+## Consultas com parâmetros dinâmicos
+
+> São consultas onde o parametro não se torna obrigatório para realizar a query, se não for informado nenhum argumento no
+> método a query vai trazer uma informação genérica e se tiver vai ser realizado a query com os devidos filtros.
+
+### Desvantagem da Criteria API
+
+- Código mais complexo de entender e manter

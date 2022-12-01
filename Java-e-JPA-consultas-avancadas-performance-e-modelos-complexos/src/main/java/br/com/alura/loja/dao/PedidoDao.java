@@ -42,7 +42,7 @@ public class PedidoDao {
     }
 
     public Pedido buscarPedidoComCLiente(Long id){
-        //Para carregar um relacionamento junto com Pedido utilizamos o JOIN FETCH com o nome do atributo
+        //Para carregar um relacionamento Lazy junto com Pedido utilizamos o JOIN FETCH com o nome do atributo
         return em.createQuery("SELECT p FROM Pedido p JOIN FETCH p.cliente WHERE p.id = :id", Pedido.class)
                 .setParameter("id",id)
                 .getSingleResult();

@@ -6,26 +6,20 @@ import br.com.alura.loja.dao.PedidoDao;
 import br.com.alura.loja.dao.ProdutoDao;
 import br.com.alura.loja.modelo.*;
 import br.com.alura.loja.util.JPAUtil;
-import br.com.alura.loja.vo.RelatorioDeVendasVo;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class PerformanceDeConsultas {
+public class TesteConsultaDinamica {
 
     public static void main(String[] args) {
         popularBancoDeDados();
         EntityManager em = JPAUtil.getEntityManager();
 
-        PedidoDao pedidoDao = new PedidoDao(em);
-        Pedido pedido = pedidoDao.buscarPedidoComCLiente(1l);
-
-        em.close();
-
-        //Aqui, mesmo que o entity manager estiver fechado, como nessa consulta já trouxemos as informações Lazy a JPA não
-        //vai precisar fazer um novo select não disparando assim uma exception
-        System.out.println(pedido.getCliente().getNome());
+        ProdutoDao produtoDao = new ProdutoDao(em);
+        List<Produto> listaProduto = produtoDao.buscarPorParametros("Xiaomi Redmi", null, null);
+        listaProduto.forEach(produto -> System.out.println("Nome do produto: " + produto.getNome()));
     }
 
     private static void popularBancoDeDados() {
