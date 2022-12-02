@@ -29,7 +29,7 @@ public class PerformanceDeConsultas {
     }
 
     private static void popularBancoDeDados() {
-        Categoria celulares = new Categoria("CELULARES");
+        Categoria celulares = new Categoria("CELULARES","Android");
 
         Produto celular = new Produto("Xiaomi Redmi", "Muito legal", new BigDecimal("800"), celulares);
 

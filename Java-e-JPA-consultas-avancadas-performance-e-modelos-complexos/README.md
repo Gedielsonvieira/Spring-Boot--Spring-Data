@@ -110,4 +110,45 @@ estivessemos dando new em uma (classe passada depois do new).
 > façam parte da entidade, deixando o código mais coeso e mais organizado seguindo o princípio da responsabilidade
 > única.
 
+## Mapeamento de herança
 
+> A JPA, ela tem suporte para algumas estratégias para o mapeamento de herança as duas principais são:
+> - Single Table e
+> - Joined
+
+### Single Table
+
+> Nesta estratégia, por mais que no código temos classes e subclasses, no banco de dados os atributos da classe e da
+> subclasse vão estar
+> presente soemnte em uma tabela.
+
+**@Inheritance** - Informa para a JPA que a classe quem tem essa anotação (deve ser colocada na classe pai) vai ser
+utilizada como herança e passamos a estratégia como single table **(strategy = InheritanceType.SINGLE_TABLE)**
+
+#### Vantagem e Desvantagen
+
+✅ Mais performático - Já que está tudo em uma tabela a JPA não realiza joins ao realizar uma query<br>
+❌ Desorganização - Fica tudo misturado em uma mesma tabela
+
+## Joined
+
+> Estratégia onde temos uma tabela por classe, ou seja, vamos ter a tabela para a classe pai e uma tabela para cada
+> classe filha
+
+**@Inheritance** - Informa para a JPA que a classe quem tem essa anotação (deve ser colocada na classe pai) vai ser
+utilizada como herança e passamos a estratégia como joined **(strategy = InheritanceType.JOINED)**
+
+#### Vantagem e Desvantagen
+
+✅ Organização - Cada classe tem sua tabela<br>
+❌ Menos performático - Já que cada classe tem sua tabela ao fazer uma query a JPA vai realizar join
+
+## Mapeamento de chaves compostas
+
+> As vezes, tem alguns sistemas, que precisamos mapear uma chave composta, a chave não é um único atributo, são duas ou
+> mais informações. E a JPA, tem suporte para isso.
+
+- @EmbeddedId - Essa anotação é inserida no atributo da Entidade e informa para a JPA que aqui dentro estão os atributos que formam a chave primária composta.
+
+### ❗ importante 
+Geralmente, classes que têm @Embeddable, é comum colocarmos um implements Serializable para evitar erros

@@ -1,32 +1,24 @@
 package br.com.alura.loja.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "categorias")
 public class Categoria {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nome;
+	@EmbeddedId
+	private CategoriaPkComposta categoriaPkComposta;
 	
 	public Categoria() {
 	}
 	
-	public Categoria(String nome) {
-		this.nome = nome;
+	public Categoria(String nome, String tipo) {
+		this.categoriaPkComposta = new CategoriaPkComposta(nome, "xpto");
 	}
 
 	public String getNome() {
-		return nome;
+		//isso se chama delegate
+		return this.categoriaPkComposta.getNome();
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+
 
 }

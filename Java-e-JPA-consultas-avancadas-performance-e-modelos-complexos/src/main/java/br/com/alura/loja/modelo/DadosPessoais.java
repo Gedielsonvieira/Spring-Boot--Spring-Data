@@ -1,9 +1,11 @@
 package br.com.alura.loja.modelo;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
-//Informa para a JPA que essa classe é embutivel, ou seja, conseguimos embutir ela dentro de uma entidade (para que a
-//JPA considere que esses atributos que não estão diretamente na entidade mesmo assim faça parte da tabela da entidade)
+//@Embeddable - Informa para a JPA que essa classe é embutivel, ou seja, conseguimos embutir ela dentro de uma entidade
+//(para que a JPA considere que esses atributos que não estão diretamente na entidade mesmo assim faça parte da tabela
+//da entidade)
 @Embeddable
 public class DadosPessoais {
     private String nome;
