@@ -87,9 +87,27 @@ estivessemos dando new em uma (classe passada depois do new).
 
 ## Consultas com parâmetros dinâmicos
 
-> São consultas onde o parametro não se torna obrigatório para realizar a query, se não for informado nenhum argumento no
+> São consultas onde o parametro não se torna obrigatório para realizar a query, se não for informado nenhum argumento
+> no
 > método a query vai trazer uma informação genérica e se tiver vai ser realizado a query com os devidos filtros.
 
 ### Desvantagem da Criteria API
 
 - Código mais complexo de entender e manter
+
+# Outros tópicos
+
+## Simplificando entidades com Embeddable
+
+- **@Embeddable** - Informa para a JPA que a classe é embutivel, ou seja, conseguimos embutir ela dentro de uma
+  entidade (para que a JPA considere que esses atributos que não estão diretamente na entidade mesmo assim faça parte da
+  tabela da entidade)
+
+
+- **@Embedded** - Informa para a JPA que ela embuta os atributos da classe que esta na entidade.
+
+> Então temos outra classe com os atributos que antes eram da entidade e mesmo assim conseguimos que os atributos ainda
+> façam parte da entidade, deixando o código mais coeso e mais organizado seguindo o princípio da responsabilidade
+> única.
+
+

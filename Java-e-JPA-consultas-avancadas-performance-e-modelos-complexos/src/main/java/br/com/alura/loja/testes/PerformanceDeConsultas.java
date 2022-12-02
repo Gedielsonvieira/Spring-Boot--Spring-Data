@@ -25,7 +25,7 @@ public class PerformanceDeConsultas {
 
         //Aqui, mesmo que o entity manager estiver fechado, como nessa consulta já trouxemos as informações Lazy a JPA não
         //vai precisar fazer um novo select não disparando assim uma exception
-        System.out.println(pedido.getCliente().getNome());
+        System.out.println(pedido.getCliente().getDadosPessoais().getNome());
     }
 
     private static void popularBancoDeDados() {
