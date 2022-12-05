@@ -17,3 +17,12 @@
 - Lazy, Eager e Join Fecth
 - Criteria API
 - Outros tópicos (herança, chave composta, ...)
+
+# <a href="https://github.com/Gedielsonvieira/Spring-Boot--Spring-Data/tree/master/Spring-Data-JPA-Repositorios-Consultas-Projecoes-e-Specifications">Spring Data JPA: Repositórios, Consultas, Projeções e Specifications</a>
+
+- Repositório
+- Operações Crud 
+- Derived Queries, JPQL e Native Queries
+- Paginação e Ordenação
+- Trabalhando com Projeções
+- Consultas dinâmicas
