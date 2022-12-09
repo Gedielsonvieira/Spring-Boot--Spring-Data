@@ -11,13 +11,45 @@ import java.util.Scanner;
 public class CrudCargoService {
 
     private final CargoRepository cargoRepository;
+    private boolean system = true;
 
     public CrudCargoService(CargoRepository cargoRepository) {
         this.cargoRepository = cargoRepository;
     }
 
     public void inicial(Scanner scanner) {
-        salvar(scanner);
+
+        while (system) {
+            System.out.println("---------- Sub-Menu ----------");
+            System.out.println("0 - Sair");
+            System.out.println("1 - Inserir Cargo");
+            System.out.println("2 - Atualizar Cargo");
+            System.out.println("3 - Deletar Cargo");
+            System.out.println("4 - Visualizar Cargos");
+
+            int action = scanner.nextInt();
+
+            switch (action) {
+                case 0:
+                    system = false;
+                    break;
+                case 1:
+                    salvar(scanner);
+                    break;
+                case 2:
+                    atualizar(scanner);
+                    break;
+                case 3:
+                    deletar(scanner);
+                    break;
+                case 4:
+                    visualizar();
+                    break;
+                default:
+                    System.out.println("Comando inválido");
+                    break;
+            }
+        }
     }
 
     public void salvar(Scanner scanner) {
@@ -32,15 +64,7 @@ public class CrudCargoService {
     }
 
     public void atualizar(Scanner scanner) {
-        Iterable<Cargo> listaCargos = cargoRepository.findAll();
-        System.out.println("Lista de cargos: ");
-
-        for (Cargo cargo : listaCargos) {
-            System.out.print(cargo.getId());
-            System.out.println(" " + cargo.getDescricao());
-        }
-
-        System.out.println("Insira o número de sua escolha: ");
+        System.out.println("Insira o id do cargo a ser atualizado: ");
         int id = scanner.nextInt();
 
         Optional<Cargo> idEscolhido = cargoRepository.findById(id);
@@ -59,20 +83,25 @@ public class CrudCargoService {
     }
 
     public void deletar(Scanner scanner) {
+        System.out.println("Insira o id do cargo a ser deletado: ");
+        int id = scanner.nextInt();
+
+        Optional<Cargo> idEscolhido = cargoRepository.findById(id);
+
+        if(idEscolhido.isPresent()) {
+            cargoRepository.deleteById(id);
+            System.out.println("Deleção realizada");
+        }else{
+            System.out.println("Id inexistente");
+        }
+    }
+
+    public void visualizar() {
         Iterable<Cargo> listaCargos = cargoRepository.findAll();
         System.out.println("Lista de cargos: ");
 
-        for (Cargo cargo : listaCargos) {
-            System.out.print(cargo.getId());
-            System.out.println(" " + cargo.getDescricao());
-        }
-
-        System.out.println("Insira o número de sua escolha: ");
-        int id = scanner.nextInt();
-
-        cargoRepository.deleteById(id);
-
-        System.out.println("Deleção realizada");
+        listaCargos.forEach(cargo -> System.out.println(cargo));
     }
+
 
 }

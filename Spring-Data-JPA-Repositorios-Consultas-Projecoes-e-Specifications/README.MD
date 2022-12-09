@@ -2,6 +2,12 @@
 
 > É um framework criado para ajudar desenvolvedores Java na sua integração com o banco de dados.
 
+## Diagramas do projeto
+<image src="./spring-data/desafio.png">
+
+### Entidades
+<image src="./spring-data/entidades.png">
+
 ## Primeiro Repositório
 ### Sobre o ambiente / Configuração do ambiente
 

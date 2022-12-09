@@ -1,6 +1,7 @@
 package br.com.alura.spring.data;
 
 import br.com.alura.spring.data.service.CrudCargoService;
+import br.com.alura.spring.data.service.CrudFuncionarioService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,10 +15,13 @@ public class SpringDataApplication implements CommandLineRunner {
 //e vai ser executado tudo o que ele contém
     private final CrudCargoService crudCargoService;
 
+    private final CrudFuncionarioService crudFuncionarioService;
+
     private boolean system = true;
 
-    public SpringDataApplication(CrudCargoService crudCargoService) {
+    public SpringDataApplication(CrudCargoService crudCargoService, CrudFuncionarioService crudFuncionarioService) {
         this.crudCargoService = crudCargoService;
+        this.crudFuncionarioService = crudFuncionarioService;
     }
 
     public static void main(String[] args) {
@@ -33,17 +37,15 @@ public class SpringDataApplication implements CommandLineRunner {
             System.out.println("---------- Menu ----------");
             System.out.println("Escolha uma opção: ");
             System.out.println("0 - Sair");
-            System.out.println("1 - Inserir Cargo");
-            System.out.println("2 - Atualizar Cargo");
-            System.out.println("3 - Deletar Cargo");
+            System.out.println("1 - Operações de Cargo");
+            System.out.println("2 - Operações de Funcionário");
 
             int action = leDados.nextInt();
+
             if (action == 1) {
                 crudCargoService.inicial(leDados);
             } else if (action == 2) {
-                crudCargoService.atualizar(leDados);
-            } else if (action == 3) {
-                crudCargoService.deletar(leDados);
+                crudFuncionarioService.inicial(leDados);
             } else {
                 system = false;
             }
