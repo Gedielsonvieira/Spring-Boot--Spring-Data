@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "funcionarios")
@@ -19,6 +21,12 @@ public class Funcionario {
     @ManyToOne
     @JoinColumn(name = "cargo_id", nullable = false)//Não entendi o que foi isso
     private Cargo cargo;
+
+    @ManyToMany
+    /*@JoinTable(name = "funcionarios_unidades", joinColumns = {
+            @JoinColumn(name = "fk_funcionario")},
+            inverseJoinColumns = {@JoinColumn(name = "fk_unidade")}) - Join não explicado e não entendido*/
+    private List<UnidadeDeTrabalho> unidadesDeTrabalho;
 
     public Integer getId() {
         return id;
@@ -56,6 +64,18 @@ public class Funcionario {
         return dataContratacao;
     }
 
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
+
+    public List<UnidadeDeTrabalho> getUnidadesDeTrabalho() {
+        return unidadesDeTrabalho;
+    }
+
+    public void setUnidadesDeTrabalho(List<UnidadeDeTrabalho> unidadesDeTrabalho) {
+        this.unidadesDeTrabalho = unidadesDeTrabalho;
+    }
+
     @Override
     public String toString() {
         return "Funcionario [" +
@@ -64,7 +84,7 @@ public class Funcionario {
                 ", cpf='" + cpf + '\'' +
                 ", salario=" + salario +
                 ", dataContratacao=" + dataContratacao +
-                ", cargo=" + cargo +
+                ", cargo=" + cargo.getDescricao() +
                 ']';
     }
 }

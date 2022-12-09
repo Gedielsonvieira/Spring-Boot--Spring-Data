@@ -6,7 +6,7 @@
 <image src="./spring-data/desafio.png">
 
 ### Entidades
-<image src="./spring-data/entidades.png">
+<image src="./spring-data/Entidades.png">
 
 ## Primeiro Repositório
 ### Sobre o ambiente / Configuração do ambiente

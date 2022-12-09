@@ -1,7 +1,10 @@
 package br.com.alura.spring.data.service;
 
+import br.com.alura.spring.data.orm.Cargo;
 import br.com.alura.spring.data.orm.Funcionario;
+import br.com.alura.spring.data.repository.CargoRepository;
 import br.com.alura.spring.data.repository.FuncionarioRepository;
+import br.com.alura.spring.data.repository.UnidadeDeTrabalhoRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -12,10 +15,14 @@ import java.util.Scanner;
 public class CrudFuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
+    private final CargoRepository cargoRepository;
+    private UnidadeDeTrabalhoRepository unidadeDeTrabalhoRepository;
     private boolean system = true;
 
-    public CrudFuncionarioService(FuncionarioRepository funcionarioRepository) {
+    public CrudFuncionarioService(FuncionarioRepository funcionarioRepository, CargoRepository cargoRepository,UnidadeDeTrabalhoRepository unidadeDeTrabalhoRepository) {
         this.funcionarioRepository = funcionarioRepository;
+        this.cargoRepository = cargoRepository;
+        this.unidadeDeTrabalhoRepository = unidadeDeTrabalhoRepository;
     }
 
     public void inicial(Scanner scanner) {
@@ -63,11 +70,16 @@ public class CrudFuncionarioService {
         System.out.println("Salário: ");
         BigDecimal salario = scanner.nextBigDecimal();
 
+        System.out.print("Digite o número do cargo do funcionario: ");
+        int idCargoDoFuncionario = scanner.nextInt();
+        Optional<Cargo> existeIdCargo = cargoRepository.findById(idCargoDoFuncionario);
+
         Funcionario funcionario = new Funcionario();
 
         funcionario.setNome(nome);
         funcionario.setCpf(cpf);
         funcionario.setSalario(salario);
+        funcionario.setCargo(existeIdCargo.get());
 
         funcionarioRepository.save(funcionario);
         System.out.println("Salvo");
@@ -77,30 +89,29 @@ public class CrudFuncionarioService {
         System.out.println("Insira o id do funcionario a ser atualizado: ");
         int id = scanner.nextInt();
 
-        Optional<Funcionario> idEscolhido = funcionarioRepository.findById(id);
+        System.out.print("Nome: ");
+        String nome = scanner.next();
 
-        if (idEscolhido.isPresent()) {
-            System.out.println("Nome: ");
-            String nome = scanner.next();
+        System.out.print("CPF: ");
+        String cpf = scanner.next();
 
-            System.out.println("CPF: ");
-            String cpf = scanner.next();
+        System.out.print("Salário: ");
+        BigDecimal salario = scanner.nextBigDecimal();
 
-            System.out.println("Salário: ");
-            BigDecimal salario = scanner.nextBigDecimal();
+        System.out.print("Digite o número do cargo do funcionario: ");
+        int idCargoDoFuncionario = scanner.nextInt();
+        Optional<Cargo> existeIdCargo = cargoRepository.findById(idCargoDoFuncionario);
 
-            Funcionario funcionario = new Funcionario();
-            funcionario.setId(id);
-            funcionario.setNome(nome);
-            funcionario.setCpf(cpf);
-            funcionario.setSalario(salario);
+        Funcionario funcionario = new Funcionario();
+        funcionario.setId(id);
+        funcionario.setNome(nome);
+        funcionario.setCpf(cpf);
+        funcionario.setSalario(salario);
+        funcionario.setCargo(existeIdCargo.get());
 
-            funcionarioRepository.save(funcionario);
+        funcionarioRepository.save(funcionario);
 
-            System.out.println("funcionario atualizado");
-        } else {
-            System.out.println("ID inválido");
-        }
+        System.out.println("funcionario atualizado");
     }
 
     public void deletar(Scanner scanner) {

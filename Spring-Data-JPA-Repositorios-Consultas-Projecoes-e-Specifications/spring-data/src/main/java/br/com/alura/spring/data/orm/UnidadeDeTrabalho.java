@@ -2,19 +2,19 @@ package br.com.alura.spring.data.orm;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "cargos")
-public class Cargo {
+@Table(name = "unidade-de-trabalho")
+public class UnidadeDeTrabalho {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descricao;
+    private String endereco;
 
-    @OneToMany(mappedBy = "cargo")
-    private List<Funcionario> funcionario;
+    @ManyToMany(mappedBy = "unidadesDeTrabalho")
+    List<Funcionario> funcionarios;
 
     public Integer getId() {
         return id;
@@ -32,11 +32,20 @@ public class Cargo {
         this.descricao = descricao;
     }
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
     @Override
     public String toString() {
-        return "Cargo [" +
+        return "UnidadeDeTrabalho[" +
                 "id=" + id +
                 ", descricao='" + descricao + '\'' +
+                ", endereco='" + endereco + '\'' +
                 ']';
     }
 }
