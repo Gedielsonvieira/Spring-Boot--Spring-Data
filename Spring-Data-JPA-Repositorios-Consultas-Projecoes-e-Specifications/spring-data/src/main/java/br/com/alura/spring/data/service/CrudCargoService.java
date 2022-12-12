@@ -11,13 +11,13 @@ import java.util.Scanner;
 public class CrudCargoService {
 
     private final CargoRepository cargoRepository;
-    private boolean system = true;
 
     public CrudCargoService(CargoRepository cargoRepository) {
         this.cargoRepository = cargoRepository;
     }
 
     public void inicial(Scanner scanner) {
+        boolean system = true;
 
         while (system) {
             System.out.println("---------- Sub-Menu ----------");
@@ -88,10 +88,10 @@ public class CrudCargoService {
 
         Optional<Cargo> idEscolhido = cargoRepository.findById(id);
 
-        if(idEscolhido.isPresent()) {
+        if (idEscolhido.isPresent()) {
             cargoRepository.deleteById(id);
             System.out.println("Deleção realizada");
-        }else{
+        } else {
             System.out.println("Id inexistente");
         }
     }

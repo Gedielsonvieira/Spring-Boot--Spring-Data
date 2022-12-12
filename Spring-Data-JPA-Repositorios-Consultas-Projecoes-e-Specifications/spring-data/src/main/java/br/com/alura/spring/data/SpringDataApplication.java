@@ -3,6 +3,7 @@ package br.com.alura.spring.data;
 import br.com.alura.spring.data.service.CrudCargoService;
 import br.com.alura.spring.data.service.CrudFuncionarioService;
 import br.com.alura.spring.data.service.CrudUnidadeDeTrabalhoService;
+import br.com.alura.spring.data.service.RelatoriosService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,12 +21,15 @@ public class SpringDataApplication implements CommandLineRunner {
 
     private final CrudUnidadeDeTrabalhoService crudUnidadeDeTrabalhoService;
 
+    private final RelatoriosService relatoriosService;
+
     private boolean system = true;
 
-    public SpringDataApplication(CrudCargoService crudCargoService, CrudFuncionarioService crudFuncionarioService, CrudUnidadeDeTrabalhoService crudUnidadeDeTrabalhoService) {
+    public SpringDataApplication(CrudCargoService crudCargoService, CrudFuncionarioService crudFuncionarioService, CrudUnidadeDeTrabalhoService crudUnidadeDeTrabalhoService, RelatoriosService relatoriosService) {
         this.crudCargoService = crudCargoService;
         this.crudFuncionarioService = crudFuncionarioService;
         this.crudUnidadeDeTrabalhoService = crudUnidadeDeTrabalhoService;
+        this.relatoriosService = relatoriosService;
     }
 
     public static void main(String[] args) {
@@ -44,6 +48,7 @@ public class SpringDataApplication implements CommandLineRunner {
             System.out.println("1 - Operações de Cargo");
             System.out.println("2 - Operações de Funcionário");
             System.out.println("3 - Operações de Unidade de trabalho");
+            System.out.println("4 - Relatórios");
 
             int action = leDados.nextInt();
 
@@ -53,6 +58,8 @@ public class SpringDataApplication implements CommandLineRunner {
                 crudFuncionarioService.inicial(leDados);
             } else if (action == 3) {
                 crudUnidadeDeTrabalhoService.inicial(leDados);
+            } else if (action == 4) {
+                relatoriosService.inicial(leDados);
             } else {
                 system = false;
             }

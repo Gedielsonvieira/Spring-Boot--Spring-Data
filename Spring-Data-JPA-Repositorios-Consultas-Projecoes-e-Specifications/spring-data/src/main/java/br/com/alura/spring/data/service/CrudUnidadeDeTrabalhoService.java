@@ -13,13 +13,13 @@ import java.util.Scanner;
 public class CrudUnidadeDeTrabalhoService {
 
     private final UnidadeDeTrabalhoRepository unidadeDeTrabalhoRepository;
-    private boolean system = true;
 
     public CrudUnidadeDeTrabalhoService(UnidadeDeTrabalhoRepository unidadeDeTrabalhoRepository) {
         this.unidadeDeTrabalhoRepository = unidadeDeTrabalhoRepository;
     }
 
     public void inicial(Scanner scanner) {
+        boolean system = true;
 
         while (system) {
             System.out.println("---------- Sub-Menu ----------");

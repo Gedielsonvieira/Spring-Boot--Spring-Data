@@ -1,10 +1,11 @@
 package br.com.alura.spring.data.orm;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,13 +20,14 @@ public class Funcionario {
     private LocalDate dataContratacao = LocalDate.now();
 
     @ManyToOne
-    @JoinColumn(name = "cargo_id", nullable = false)//Não entendi o que foi isso
+    @JoinColumn(name = "cargo_id", nullable = false)
+    //nullable false, faz com que seja obrigado a inserção de um cargo a um funcionario
     private Cargo cargo;
-
+    @Fetch(FetchMode.SELECT)
     @ManyToMany
-    /*@JoinTable(name = "funcionarios_unidades", joinColumns = {
+    @JoinTable(name = "funcionarios_unidades", joinColumns = {
             @JoinColumn(name = "fk_funcionario")},
-            inverseJoinColumns = {@JoinColumn(name = "fk_unidade")}) - Join não explicado e não entendido*/
+            inverseJoinColumns = {@JoinColumn(name = "fk_unidade")})
     private List<UnidadeDeTrabalho> unidadesDeTrabalho;
 
     public Integer getId() {
