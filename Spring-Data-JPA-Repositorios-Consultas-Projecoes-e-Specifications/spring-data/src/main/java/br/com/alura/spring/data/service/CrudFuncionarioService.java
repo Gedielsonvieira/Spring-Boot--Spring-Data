@@ -6,6 +6,9 @@ import br.com.alura.spring.data.orm.UnidadeDeTrabalho;
 import br.com.alura.spring.data.repository.CargoRepository;
 import br.com.alura.spring.data.repository.FuncionarioRepository;
 import br.com.alura.spring.data.repository.UnidadeDeTrabalhoRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -54,7 +57,7 @@ public class CrudFuncionarioService {
                     deletar(scanner);
                     break;
                 case 4:
-                    visualizar();
+                    visualizar(scanner);
                     break;
                 default:
                     System.out.println("Comando inválido");
@@ -63,7 +66,7 @@ public class CrudFuncionarioService {
         }
     }
 
-    public void salvar(Scanner scanner) {
+    private void salvar(Scanner scanner) {
         System.out.println("Nome: ");
         String nome = scanner.next();
 
@@ -91,7 +94,7 @@ public class CrudFuncionarioService {
         System.out.println("Salvo");
     }
 
-    public void atualizar(Scanner scanner) {
+    private void atualizar(Scanner scanner) {
         System.out.println("Insira o id do funcionario a ser atualizado: ");
         int id = scanner.nextInt();
 
@@ -123,7 +126,7 @@ public class CrudFuncionarioService {
         System.out.println("funcionario atualizado");
     }
 
-    public void deletar(Scanner scanner) {
+    private void deletar(Scanner scanner) {
         System.out.println("Insira o id do funcionario a ser deletado: ");
         int id = scanner.nextInt();
 
@@ -137,8 +140,13 @@ public class CrudFuncionarioService {
         }
     }
 
-    public void visualizar() {
-        Iterable<Funcionario> listaFuncionarios = funcionarioRepository.findAll();
+    private void visualizar(Scanner scanner) {
+        System.out.println("Qual página você deseja visualizar: ");
+        Integer page = scanner.nextInt();
+
+        Pageable pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.ASC, "nome"));
+
+        Iterable<Funcionario> listaFuncionarios = funcionarioRepository.findAll(pageable);
         System.out.println("Lista de funcionarios: ");
 
         listaFuncionarios.forEach(funcionario -> System.out.println(funcionario));
@@ -162,5 +170,4 @@ public class CrudFuncionarioService {
 
         return unidades;
     }
-
 }

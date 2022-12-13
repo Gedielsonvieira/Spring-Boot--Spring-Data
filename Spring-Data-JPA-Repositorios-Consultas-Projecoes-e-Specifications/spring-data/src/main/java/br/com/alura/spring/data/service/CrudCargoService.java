@@ -52,7 +52,7 @@ public class CrudCargoService {
         }
     }
 
-    public void salvar(Scanner scanner) {
+    private void salvar(Scanner scanner) {
         System.out.println("Descrição: ");
         String descricao = scanner.next();
 
@@ -63,7 +63,7 @@ public class CrudCargoService {
         System.out.println("Salvo");
     }
 
-    public void atualizar(Scanner scanner) {
+    private void atualizar(Scanner scanner) {
         System.out.println("Insira o id do cargo a ser atualizado: ");
         int id = scanner.nextInt();
 
@@ -82,7 +82,7 @@ public class CrudCargoService {
         }
     }
 
-    public void deletar(Scanner scanner) {
+    private void deletar(Scanner scanner) {
         System.out.println("Insira o id do cargo a ser deletado: ");
         int id = scanner.nextInt();
 
@@ -96,12 +96,10 @@ public class CrudCargoService {
         }
     }
 
-    public void visualizar() {
+    private void visualizar() {
         Iterable<Cargo> listaCargos = cargoRepository.findAll();
         System.out.println("Lista de cargos: ");
 
         listaCargos.forEach(cargo -> System.out.println(cargo));
     }
-
-
 }

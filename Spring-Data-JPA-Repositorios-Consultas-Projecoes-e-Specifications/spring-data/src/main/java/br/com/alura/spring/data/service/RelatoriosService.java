@@ -28,6 +28,7 @@ public class RelatoriosService {
             System.out.println("0 - Sair");
             System.out.println("1 - Buscar funcionário por nome");
             System.out.println("2 - Filtrar por nome, salario e data de contratação");
+            System.out.println("3 - Filtrar por data de contratação");
 
             int action = scanner.nextInt();
 
@@ -41,11 +42,29 @@ public class RelatoriosService {
                 case 2:
                     buscaFuncionarioPorNomeSalarioMaiorDataContratacao(scanner);
                     break;
+                case 3:
+                    buscaFuncionarioPorDataContratacao(scanner);
+                    break;
                 default:
                     System.out.println("Comando inválido");
                     break;
             }
         }
+    }
+
+    private void buscaFuncionarioPorDataContratacao(Scanner scanner) {
+        System.out.println("Digite a data de contratação: ");
+        String data = scanner.next();
+        LocalDate dataFormatada = LocalDate.parse(data, formatter);//Convertendo String para LocalDate no formato desejado
+
+        List<Funcionario> listaFuncionarioDataContratacao = funcionarioRepository.findFuncionarioDataContratacaoMaior(dataFormatada);
+
+        if (listaFuncionarioDataContratacao.isEmpty()) {
+            System.out.println("Funcionario não encontrado na base de dados!");
+        } else {
+            listaFuncionarioDataContratacao.forEach(funcionario -> System.out.println(funcionario));
+        }
+
     }
 
     private void buscaFuncionarioPorNomeSalarioMaiorDataContratacao(Scanner scanner) {

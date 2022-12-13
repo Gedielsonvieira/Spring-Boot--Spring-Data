@@ -54,7 +54,7 @@ public class CrudUnidadeDeTrabalhoService {
         }
     }
 
-    public void salvar(Scanner scanner) {
+    private void salvar(Scanner scanner) {
         System.out.println("Digite o nome da unidade");
         String descricao = scanner.next();
 
@@ -69,7 +69,7 @@ public class CrudUnidadeDeTrabalhoService {
         System.out.println("Salvo");
     }
 
-    public void atualizar(Scanner scanner) {
+    private void atualizar(Scanner scanner) {
         System.out.println("Digite o id");
         Integer id = scanner.nextInt();
 
@@ -88,17 +88,15 @@ public class CrudUnidadeDeTrabalhoService {
         System.out.println("Alterado");
     }
 
-    public void deletar(Scanner scanner) {
+    private void deletar(Scanner scanner) {
         System.out.println("Id");
         int id = scanner.nextInt();
         unidadeDeTrabalhoRepository.deleteById(id);
         System.out.println("Deletado");
     }
 
-    public void visualizar() {
+    private void visualizar() {
         Iterable<UnidadeDeTrabalho> unidades = unidadeDeTrabalhoRepository.findAll();
         unidades.forEach(unidade -> System.out.println(unidade));
     }
-
-
 }

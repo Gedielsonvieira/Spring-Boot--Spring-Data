@@ -79,9 +79,30 @@ O método save serve para entidades transient e detached
 * **Derived Queries -** Através de um comando, de um método escrito em Java, o próprio Spring Data consegue pegar método e criar uma Query para o seu banco de dados específico sem termos que criar nenhum comando SQL
 
 ### Diferença entre Derived Query, JPQL e Native Query
-* Derived Queries - queries criadas através de código Java
-* JPQL - queries criadas através de uma estrutura SQL, porém com os nomes das entidades Java
-* Native Query - queries padrões SQL que conseguimos executar no nosso Client SQL
+* **Derived Queries -** queries criadas através de código Java
+  * **Vantagem:** Spring Data cria uma Query para o seu banco de dados automaticamente
+  * **Desvantagem:** Passa pela fase de transformação em query nativa.<br><br>
+
+* **JPQL -** queries criadas através de uma estrutura SQL, porém com os nomes das entidades Java
+  * **Vantagem:** Roda em diversos bancos sem alteração
+  * **Desvantagem:** Por ter uma camada de abstração, em algum momento o código jpql tem que ser transformado em código nativo, isso gera uma **performance menor**<br><br>
+
+* **Native Query -** queries padrões SQL que conseguimos executar no nosso Client SQL.
+  * **Vantagem:** Podem fazer uso de recursos específicos do banco de dados, não passam por nenhuma conversão para serem geradas (mais performática).
+  * **Desvantagem:** Está diretamente ligada a um banco especifico (é necessário refaze-la em caso de uma mudança de banco) e sair bastante do paradigma orientado a objetos
+
+## Paginação e Ordenação
+> Com a paginação conseguimos dividir uma consulta para que possamos apresentar páginas menores de um todo. Assim as consultas ficam mais rápidas.
+
+* Para paginar uma consulta, devemos enviar um objeto do tipo Pageable como parâmetro para o método findAll, pois no objeto pageable encapsulamos a página, a quantidade de itens e qual o tipo de ordenação
+
+* PagingAndSortingRepository - repositório específico para paginação
+<br>
+
+
+> Com a ordenação trazemos os dados da consulta de forma ordenada através do campo em que faz mais sentido para o negócio. 
+
+
 
 ## Anotações vistas
 
