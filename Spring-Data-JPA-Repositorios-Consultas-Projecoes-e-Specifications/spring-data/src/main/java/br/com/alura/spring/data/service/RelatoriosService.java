@@ -1,6 +1,8 @@
 package br.com.alura.spring.data.service;
 
+import br.com.alura.spring.data.dto.FuncionarioDto;
 import br.com.alura.spring.data.orm.Funcionario;
+import br.com.alura.spring.data.orm.FuncionarioProjecaoInterface;
 import br.com.alura.spring.data.repository.FuncionarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,8 @@ public class RelatoriosService {
             System.out.println("1 - Buscar funcionário por nome");
             System.out.println("2 - Filtrar por nome, salario e data de contratação");
             System.out.println("3 - Filtrar por data de contratação");
+            System.out.println("4 - Pesquisa funcionario salario interface");
+            System.out.println("5 - Pesquisa funcionario salario classe");
 
             int action = scanner.nextInt();
 
@@ -44,6 +48,12 @@ public class RelatoriosService {
                     break;
                 case 3:
                     buscaFuncionarioPorDataContratacao(scanner);
+                    break;
+                case 4:
+                    pesquisaFuncionarioSalario();
+                    break;
+                case 5:
+                    pesquisaFuncionarioSalarioProjecaoClasse();
                     break;
                 default:
                     System.out.println("Comando inválido");
@@ -98,5 +108,15 @@ public class RelatoriosService {
         } else {
             listaDeNomes.forEach(name -> System.out.println(name));
         }
+    }
+
+    private void pesquisaFuncionarioSalario() {
+        List<FuncionarioProjecaoInterface> listaFuncionarioSalario = funcionarioRepository.findFuncionarioSalario();
+        listaFuncionarioSalario.forEach(funcionario -> System.out.println("Funcionario - " + "id: " + funcionario.getId() + " Nome: " + funcionario.getNome() + " Salário: " + funcionario.getSalario()));
+    }
+
+    private void pesquisaFuncionarioSalarioProjecaoClasse() {
+        List<FuncionarioDto> listaFuncionarioSalarioComProjecaoClasse = funcionarioRepository.findFuncionarioSalarioComProjecaoClasse();
+        listaFuncionarioSalarioComProjecaoClasse.forEach(funcionario -> System.out.println("Funcionario - " + "id: " + funcionario.getId() + " | Nome: " + funcionario.getNome() + " | Salário: " + funcionario.getSalario()));
     }
 }
