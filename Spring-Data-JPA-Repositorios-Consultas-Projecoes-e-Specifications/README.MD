@@ -147,6 +147,16 @@ O método save serve para entidades transient e detached
   mas pode ter uma vantagem, pois podemos adicionar métodos mais específicos que podem fazer sentido para a view (por
   exemplo, os de formatação).
 
+## Consultas Dinâmicas - Specification
+
+> Quando criamos consultas dinâmicas, utilizamos a Specification e o seu papel na criação das consultas dinâmicas é ter
+> um objeto com todos os itens necessários para realizar uma consulta dinâmica, como por exemplo root, criteriaQuery e
+> criteriaBuilder, com o objetivo de entregar, ao desenvolver um objeto pronto, para que ele só tenha que se preocupar
+> com qual operação SQL ele deseja executar.
+
+* **JpaSpecificationExecutor -** Essa interface vai ser responsável por executar as Specifications dentro do nosso
+  Repository.
+
 ## Anotações vistas
 
 - **@SpringBootApplication** - Utilizada para que quando iniciado o framework do spring ele percorra por todas as
@@ -198,7 +208,7 @@ O método save serve para entidades transient e detached
       Um exemplo básico de tabela de relacionamento muito-para-muitos:
 
       |id_funcionario    |id_unidade|
-                                                          ----------------|----------
+                                                                                  ----------------|----------
       |1              |        1|
       |1              |            2|
       |2              |          2|
