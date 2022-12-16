@@ -207,12 +207,12 @@ O método save serve para entidades transient e detached
     * **inverseJoinColumn:** O mesmo que o exemplo anterior, só que sobre a outra entidade envolvida;
       Um exemplo básico de tabela de relacionamento muito-para-muitos:
 
-      |id_funcionario    |id_unidade|
-                                                                                  ----------------|----------
-      |1              |        1|
-      |1              |            2|
-      |2              |          2|
-      |3              |            1|
+      | id_funcionario   | id_unidade       | 
+      |------------------|------------------|
+      | 1                | 1                |
+      | 1                | 2                |
+      | 2                | 2                |
+      | 3                | 1                |
 
       No exemplo acima, nota-se que:
 
